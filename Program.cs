@@ -13,8 +13,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var numbersService = scope.ServiceProvider.GetRequiredService<AutorService>();
-    await numbersService.InitializeAsync();
+    var autorService = scope.ServiceProvider.GetRequiredService<AutorService>();
+    await autorService.InitializeAsync();
 }
 
 app.MapOpenApi();
