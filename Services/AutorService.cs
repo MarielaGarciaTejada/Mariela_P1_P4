@@ -58,7 +58,7 @@ namespace WebApiAutores.Services
             SELECT last_insert_rowid();";
 
             using var connection = CreateConnection();
-            return await connection.ExecuteScalarAsync<int>(consulta, crear );
+            return await connection.ExecuteScalarAsync<int>(consulta, crear);
 
         }
 

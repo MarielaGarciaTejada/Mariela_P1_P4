@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiAutores.Models;
 using WebApiAutores.Services;
 
+
 namespace WebApiAutores.Controlllers
 {
     [Route("api/[controller]")]
@@ -29,7 +30,7 @@ namespace WebApiAutores.Controlllers
             return Ok(new { message = $"El autor con Id {id} fue actualizado correctamente." });
         }
 
-        [HttpDelete("{Id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var eliminado = await autorService.DeleteAsync(id);
