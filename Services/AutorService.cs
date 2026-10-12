@@ -17,7 +17,7 @@ namespace WebApiAutores.Services
             const string consulta = @"
                 CREATE TABLE IF NOT EXISTS Autores
                 (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    IdAutor INTEGER PRIMARY KEY AUTOINCREMENT,
                     Nombre TEXT NOT NULL,
                     Nacionalidad REAL NOT NULL,
                     FechaNacimiento TEXT NOT NULL,
@@ -31,23 +31,23 @@ namespace WebApiAutores.Services
         public async Task<IEnumerable<AutoresGet>> GetListAsync()
         {
             const string consulta = @"
-                SELECT Id, Nombre, Nacionalidad, FechaNacimiento, Sueldo 
+                SELECT IdAutor, Nombre, Nacionalidad, FechaNacimiento, Sueldo 
                 FROM Autores;
             ";
             using var connection = CreateConnection();
             return await connection.QueryAsync<AutoresGet>(consulta);
         }
 
-        public async Task<AutoresGet?> GetByIdAsync(int id)
+        public async Task<AutoresGet?> GetByIdAsync(int idAutor)
         {
             const string consulta = @"
-            SELECT Id, Nombre, Nacionalidad, FechaNacimiento, Sueldo
+            SELECT IdAutor, Nombre, Nacionalidad, FechaNacimiento, Sueldo
             FROM Autores
-            WHERE Id = @Id;
+            WHERE IdAutor = @IdAutor;
             ";
 
             using var connection = CreateConnection();
-            return await connection.QuerySingleOrDefaultAsync<AutoresGet>(consulta, new { Id = id });
+            return await connection.QuerySingleOrDefaultAsync<AutoresGet>(consulta, new { IdAutor = idAutor });
         }
         
         public async Task<int> SaveAsync(AutoresSet crear)
@@ -62,7 +62,7 @@ namespace WebApiAutores.Services
 
         }
 
-        public async Task<bool> UpdateAsync(int id, AutoresSet autoresSet)
+        public async Task<bool> UpdateAsync(int idAutor, AutoresSet autoresSet)
         {
             const string consulta = @"
             UPDATE Autores
@@ -70,13 +70,13 @@ namespace WebApiAutores.Services
             Nacionalidad = @Nacionalidad,
             FechaNacimiento = @FechaNacimiento,
             Sueldo = @Sueldo
-            WHERE Id = @Id;
+            WHERE IdAutor = @IdAutor;
             ";
 
             using var connection = CreateConnection();
             var filasAfectadas = await connection.ExecuteAsync(consulta, new
             {
-                Id = id,
+                IdAutor = idAutor,
                 autoresSet.Nombre,
                 autoresSet.Nacionalidad,
                 autoresSet.FechaNacimiento,
@@ -85,15 +85,15 @@ namespace WebApiAutores.Services
             return filasAfectadas > 0;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int idAutor)
         {
             const string consulta = @"
             DELETE FROM Autores
-            WHERE Id = @Id;
+            WHERE IdAutor = @IdAutor;
             ";
 
             using var connection = CreateConnection();
-            var filasAfectadas = await connection.ExecuteAsync(consulta, new { Id = id });
+            var filasAfectadas = await connection.ExecuteAsync(consulta, new { IdAutor = idAutor });
             return filasAfectadas > 0;
         }
 
