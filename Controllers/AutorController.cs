@@ -6,7 +6,7 @@ using WebApiAutores.Services;
 
 namespace WebApiAutores.Controlllers
 {
-    [Route("api/[controller]")]
+    [Route("api/autores")]
     [ApiController]
     public class AutorController(AutorService autorService) : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace WebApiAutores.Controlllers
             return Ok(new { message = $"El autor con Id {id} fue eliminado correctamente." });
         }
 
-        [HttpGet("autores")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<AutoresGet>>> GetListaAutores()
         {
             var lista = await autorService.GetListAsync();
